@@ -87,7 +87,7 @@ func TestClaudeApplyDarwinMissing(t *testing.T) {
 	env, fr, _ := newClaudeTestEnv(claudeDarwin, true)
 	err := NewClaude().Apply(context.Background(), env)
 	var ce *ClaudeCaskMissingError
-	if !errors.As(err, &ce) || ce.Cask != "claude-code" {
+	if !errors.As(err, &ce) || ce.Cask != "claude-code@latest" {
 		t.Fatalf("err = %v", err)
 	}
 	if got := fr.Commands(); !slices.Equal(got, []string{claudeVersionCmd}) {

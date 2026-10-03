@@ -16,7 +16,7 @@ const (
 	claudeID = module.ID("claude")
 	// claudeInstallScript is the official native installer from the Claude Code docs.
 	claudeInstallScript = "curl -fsSL https://claude.ai/install.sh | bash"
-	claudeCask          = "claude-code"
+	claudeCask          = "claude-code@latest"
 )
 
 // ClaudeCaskMissingError reports that Claude Code is absent on darwin, where

@@ -1,5 +1,5 @@
 # Homebrew casks, installed on macOS only.
 # One package per line. `#` starts a comment. Blank lines are ignored.
 
-claude-code
+claude-code@latest
 miniforge
