@@ -30,14 +30,6 @@
   - **Touches**: (none in repo — changes $HOME)
   - **Acceptance**: The user approved and the symlinks are in place. The backup dir is listed in the report.
 
-- [ ] Publish to GitHub as doraeminemon/dotfiles (public)
-  - **ID**: publish-github
-  - **Tags**: needs-approval, release
-  - **Estimate**: 15m
-  - **Details**: Show the secret-audit result, then ask the user. On approval: initial commit(s), `gh repo create doraeminemon/dotfiles --public --source . --push`, then check that CI goes green. Ask again before you push the first tag `v0.1.0`, then check that the release has the 4 binaries.
-  - **Touches**: (git remote only)
-  - **Acceptance**: The repo is public, CI passes on main, and `v0.1.0` release assets exist.
-
 ## P2
 
 - [ ] Smoke-test bootstrap on a fresh Ubuntu VM
@@ -46,5 +38,4 @@
   - **Estimate**: 45m
   - **Details**: `orb create ubuntu dottest`. Inside it, run the README curl one-liner (no git or Go installed beforehand), then `./dot doctor`. Delete the VM after. Record the failures as new tasks.
   - **Touches**: (none — VM only)
-  - **Blocked by**: publish-github
   - **Acceptance**: `dot doctor` shows every Linux-supported module as Installed.

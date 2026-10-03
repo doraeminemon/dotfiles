@@ -5,14 +5,8 @@ Source of truth: [`TASKS.md`](../TASKS.md) (`**Blocked by**` fields). Update thi
 ```mermaid
 flowchart TD
   classDef approval fill:#fde68a,stroke:#b45309,color:#000
-
-  cli-commands --> release-goreleaser
-  cli-commands & release-goreleaser --> ci-workflow
-  cli-commands --> docs-final
-  docs-final --> secret-audit
-  cli-commands & secret-audit --> migrate-this-mac:::approval
-  secret-audit & ci-workflow --> publish-github:::approval
-  publish-github --> linux-smoke:::approval
+  migrate-this-mac:::approval
+  linux-smoke:::approval
 ```
 
 Waves 0–3 are done and merged: scaffold, ADRs, package lists, chezmoi source, skills profiles, AGENTS templates, the core packages (platform, runner, prompt, pkglist, module), the types review, and all 11 installer modules plus `internal/project`.
