@@ -1,4 +1,6 @@
-{{- if stat (joinPath .chezmoi.homeDir ".orbstack/ssh/config") -}}
+Include ~/.ssh/config.local
+
+{{ if stat (joinPath .chezmoi.homeDir ".orbstack/ssh/config") -}}
 # OrbStack VMs. Include must come before any Host block.
 Include ~/.orbstack/ssh/config
 
