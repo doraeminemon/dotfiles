@@ -88,6 +88,7 @@ Some config belongs to one machine and stays out of the repo.
 
 - `~/.ssh/config.local`: the managed `~/.ssh/config` includes it on its first line. Put private hosts there. ssh ignores the include if the file is missing.
 - `~/.config/fish/conf.d/secrets.fish`: written by the `secrets` module. See "Secrets".
+- `~/.config/fish/conf.d/local.fish`: untracked. Put private env vars here.
 - `~/.claude/settings.json`: chezmoi creates it on a new machine and never overwrites it (`create_private_settings.json.tmpl`, mode 0600), because Claude Code edits this file itself. To change the default, edit the template. An existing machine keeps its own copy.
 
 ## How to add things

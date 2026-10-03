@@ -29,6 +29,15 @@ if not contains -- $PNPM_HOME $PATH
     set -gx PATH "$PNPM_HOME" $PATH
 end
 
+# conda hook (miniforge). Not `conda init fish`, which writes absolute paths.
+# Before mise, so the mise shims still win.
+for base in /opt/homebrew/Caskroom/miniforge/base /usr/local/Caskroom/miniforge/base "$HOME/miniforge3"
+    if test -x $base/bin/conda
+        eval $base/bin/conda shell.fish hook 2>/dev/null | source
+        break
+    end
+end
+
 # mise shims (must come after PNPM_HOME so it takes precedence)
 fish_add_path --global "$HOME/.local/share/mise/shims"
 

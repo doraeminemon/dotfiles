@@ -196,7 +196,6 @@ func TestPythonApplyDarwin(t *testing.T) {
 				t.Fatal(err)
 			}
 			pythonAssertCommands(t, r, []string{
-				tt.base + "/bin/conda init fish",
 				tt.base + "/bin/conda config --set auto_activate_base false",
 				"uv tool list",
 				"uv tool install ruff",
@@ -227,7 +226,6 @@ func TestPythonApplyLinuxInstallsMiniforge(t *testing.T) {
 			pythonAssertCommands(t, r, []string{
 				"sh -c 'curl -fsSL " + url + " -o " + tmp +
 					" && bash " + tmp + " -b -p /home/tester/miniforge3 && rm -f " + tmp + "'",
-				pythonLinuxConda + " init fish",
 				pythonLinuxConda + " config --set auto_activate_base false",
 				"uv tool list",
 				"uv tool install ruff",
@@ -254,7 +252,6 @@ func TestPythonApplyLinuxAlreadyInstalled(t *testing.T) {
 		t.Fatal(err)
 	}
 	pythonAssertCommands(t, r, []string{
-		pythonLinuxConda + " init fish",
 		pythonLinuxConda + " config --set auto_activate_base false",
 		"uv tool list",
 	})
@@ -270,7 +267,6 @@ func TestPythonApplyInstallsOnlyMissingTool(t *testing.T) {
 	}
 	conda := "/opt/homebrew/Caskroom/miniforge/base/bin/conda"
 	pythonAssertCommands(t, r, []string{
-		conda + " init fish",
 		conda + " config --set auto_activate_base false",
 		"uv tool list",
 		"uv tool install ty",
