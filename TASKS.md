@@ -22,6 +22,15 @@
 
 <!-- Wave 5. -->
 
+- [ ] Load the conda hook from config.fish instead of running conda init (@w8-conda)
+  - **ID**: conda-hook
+  - **Tags**: go, python, fish, bug
+  - **Estimate**: 30m
+  - **Surfaced-by**: migrate-this-mac diff review: `conda init fish` had appended two blocks with absolute paths to config.fish
+  - **Details**: In symlink mode, `conda init fish` would write machine-specific absolute paths into the repo's config.fish. (1) python module: remove the `conda init fish` step and keep `conda config --set auto_activate_base false`. (2) `home/dot_config/fish/config.fish`: add a portable block that loops over `/opt/homebrew/Caskroom/miniforge/base`, `/usr/local/Caskroom/miniforge/base`, `$HOME/miniforge3`; for the first one where `bin/conda` is executable, run `eval $base/bin/conda shell.fish hook | source`, then break. Check it with `fish -n`. (3) README "Machine-only config": add that `~/.config/fish/conf.d/local.fish` is untracked and is the place for private env vars.
+  - **Touches**: `internal/modules/python.go`, `internal/modules/python_test.go`, `home/dot_config/fish/config.fish`, `README.md`
+  - **Acceptance**: Tests updated so no `conda init` call remains. `fish -n` passes. The gate passes.
+
 - [ ] Migrate this Mac to the chezmoi symlinks
   - **ID**: migrate-this-mac
   - **Tags**: needs-approval, chezmoi
@@ -29,6 +38,7 @@
   - **Details**: Run `go run ./cmd/dot install --only chezmoi`. Review the diff with the user, confirm the backup, and apply. Check that `ls -l ~/.config/fish/config.fish` points into the repo and that a new fish shell starts with no errors.
   - **Touches**: (none in repo — changes $HOME)
   - **Acceptance**: The user approved and the symlinks are in place. The backup dir is listed in the report.
+  - **Blocked by**: conda-hook
 
 ## P2
 
