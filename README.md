@@ -82,6 +82,14 @@ Without a terminal, set `DOT_EXA_API_KEY` in the environment. The module reads t
 
 To add a secret, add an entry to `secretsList` in `internal/modules/secrets.go`.
 
+## Machine-only config
+
+Some config belongs to one machine and stays out of the repo.
+
+- `~/.ssh/config.local`: the managed `~/.ssh/config` includes it on its first line. Put private hosts there. ssh ignores the include if the file is missing.
+- `~/.config/fish/conf.d/secrets.fish`: written by the `secrets` module. See "Secrets".
+- `~/.claude/settings.json`: chezmoi creates it on a new machine and never overwrites it (`create_settings.json.tmpl`), because Claude Code edits this file itself. To change the default, edit the template. An existing machine keeps its own copy.
+
 ## How to add things
 
 Add a package. Add one line to the right file in `packages/`. `brew.txt` is for both platforms, `brew-cask-darwin.txt` is for macOS casks, `apt.txt` is for Debian and Ubuntu system packages. A `#` starts a comment. Keep the lists to core tools. Tools for one project or one environment are installed by hand.
