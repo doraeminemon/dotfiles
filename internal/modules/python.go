@@ -34,8 +34,9 @@ type pythonModule struct{}
 //
 // On darwin the miniforge cask comes from the brew module. On linux the
 // module downloads the Miniforge installer into ~/miniforge3. On both, it
-// runs `conda init fish`, turns off auto_activate_base, and installs the
-// missing uv tools.
+// turns off auto_activate_base and installs the missing uv tools. It does not
+// run `conda init fish`, because that writes absolute paths into config.fish.
+// The tracked config.fish loads the conda hook itself.
 func NewPython() module.Module { return pythonModule{} }
 
 func (pythonModule) ID() module.ID { return pythonID }
@@ -83,13 +84,9 @@ func (m pythonModule) Apply(ctx context.Context, env module.Env) error {
 		}
 	}
 	conda := pythonConda(base)
-	for _, args := range [][]string{
-		{"init", "fish"},
-		{"config", "--set", "auto_activate_base", "false"},
-	} {
-		if err := env.Run.Run(ctx, runner.Cmd{Name: conda, Args: args}); err != nil {
-			return fmt.Errorf("python: conda %s: %w", strings.Join(args, " "), err)
-		}
+	args := []string{"config", "--set", "auto_activate_base", "false"}
+	if err := env.Run.Run(ctx, runner.Cmd{Name: conda, Args: args}); err != nil {
+		return fmt.Errorf("python: conda %s: %w", strings.Join(args, " "), err)
 	}
 	installed, err := pythonInstalledTools(ctx, env.Run)
 	if err != nil {
