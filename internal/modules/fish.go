@@ -71,8 +71,8 @@ func fishInShells(env module.Env, path string) (bool, error) {
 	return false, nil
 }
 
-// fishLoginShell returns the login shell of the current user.
-func fishLoginShell(ctx context.Context, env module.Env) (string, error) {
+// fishUser returns the name of the current user.
+func fishUser(ctx context.Context, env module.Env) (string, error) {
 	out, err := env.Run.Output(ctx, runner.Cmd{Name: "id", Args: []string{"-un"}})
 	if err != nil {
 		return "", fmt.Errorf("fish: current user: %w", err)
@@ -81,8 +81,13 @@ func fishLoginShell(ctx context.Context, env module.Env) (string, error) {
 	if user == "" {
 		return "", &fishParseError{What: "user name", Output: string(out)}
 	}
+	return user, nil
+}
+
+// fishLoginShell returns the login shell of user.
+func fishLoginShell(ctx context.Context, env module.Env, user string) (string, error) {
 	if env.Platform.OS == platform.Darwin {
-		out, err = env.Run.Output(ctx, runner.Cmd{Name: "dscl", Args: []string{".", "-read", "/Users/" + user, "UserShell"}})
+		out, err := env.Run.Output(ctx, runner.Cmd{Name: "dscl", Args: []string{".", "-read", "/Users/" + user, "UserShell"}})
 		if err != nil {
 			return "", fmt.Errorf("fish: read login shell: %w", err)
 		}
@@ -93,7 +98,7 @@ func fishLoginShell(ctx context.Context, env module.Env) (string, error) {
 		}
 		return shell, nil
 	}
-	out, err = env.Run.Output(ctx, runner.Cmd{Name: "getent", Args: []string{"passwd", user}})
+	out, err := env.Run.Output(ctx, runner.Cmd{Name: "getent", Args: []string{"passwd", user}})
 	if err != nil {
 		return "", fmt.Errorf("fish: read login shell: %w", err)
 	}
@@ -102,6 +107,16 @@ func fishLoginShell(ctx context.Context, env module.Env) (string, error) {
 		return "", &fishParseError{What: "passwd shell field", Output: string(out)}
 	}
 	return fields[6], nil
+}
+
+// fishChshCmd returns the interactive command that makes path the login shell
+// of user. On Linux chsh asks for the user's password through PAM, which fails
+// for users without one (cloud VMs), so it runs under sudo.
+func fishChshCmd(p platform.Platform, path, user string) runner.Cmd {
+	if p.OS == platform.Linux {
+		return runner.Cmd{Name: "sudo", Args: []string{"chsh", "-s", path, user}, Interactive: true}
+	}
+	return runner.Cmd{Name: "chsh", Args: []string{"-s", path}, Interactive: true}
 }
 
 func fishHasFisher(ctx context.Context, env module.Env) (bool, error) {
@@ -129,7 +144,11 @@ func (fishModule) Check(ctx context.Context, env module.Env) (module.Status, err
 	if err != nil || !listed {
 		return module.StatusMissing, err
 	}
-	shell, err := fishLoginShell(ctx, env)
+	user, err := fishUser(ctx, env)
+	if err != nil {
+		return module.StatusMissing, err
+	}
+	shell, err := fishLoginShell(ctx, env, user)
 	if err != nil || shell != path {
 		return module.StatusMissing, err
 	}
@@ -155,7 +174,11 @@ func (fishModule) Apply(ctx context.Context, env module.Env) error {
 			return fmt.Errorf("fish: add to %s: %w", fishShellsFile, err)
 		}
 	}
-	shell, err := fishLoginShell(ctx, env)
+	user, err := fishUser(ctx, env)
+	if err != nil {
+		return err
+	}
+	shell, err := fishLoginShell(ctx, env, user)
 	if err != nil {
 		return err
 	}
@@ -165,7 +188,7 @@ func (fishModule) Apply(ctx context.Context, env module.Env) error {
 			return fmt.Errorf("fish: confirm chsh: %w", err)
 		}
 		if ok {
-			if err := env.Run.Run(ctx, runner.Cmd{Name: "chsh", Args: []string{"-s", path}, Interactive: true}); err != nil {
+			if err := env.Run.Run(ctx, fishChshCmd(env.Platform, path, user)); err != nil {
 				return fmt.Errorf("fish: chsh: %w", err)
 			}
 		}

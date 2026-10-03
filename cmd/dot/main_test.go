@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"context"
 	"errors"
+	"io/fs"
 	"os"
 	"path/filepath"
+	"reflect"
 	"slices"
 	"strings"
 	"testing"
@@ -472,5 +474,44 @@ func TestAllModulesRegister(t *testing.T) {
 	}
 	if _, err := reg.Plan(nil, darwin); err != nil {
 		t.Errorf("Plan(darwin): %v", err)
+	}
+}
+
+func TestPrependBrewPaths(t *testing.T) {
+	present := map[string]bool{
+		"/opt/homebrew/bin/brew":              true,
+		"/home/linuxbrew/.linuxbrew/bin/brew": true,
+	}
+	stat := func(name string) (os.FileInfo, error) {
+		if present[name] {
+			return nil, nil
+		}
+		return nil, fs.ErrNotExist
+	}
+	var calls [][]string
+	prepend := func(dirs ...string) error {
+		calls = append(calls, dirs)
+		return nil
+	}
+	if err := prependBrewPaths(stat, prepend); err != nil {
+		t.Fatal(err)
+	}
+	want := [][]string{
+		{"/home/linuxbrew/.linuxbrew/bin", "/home/linuxbrew/.linuxbrew/sbin"},
+		{"/opt/homebrew/bin", "/opt/homebrew/sbin"},
+	}
+	if !reflect.DeepEqual(calls, want) {
+		t.Fatalf("prepend calls = %q, want %q", calls, want)
+	}
+
+	calls = nil
+	if err := prependBrewPaths(func(string) (os.FileInfo, error) { return nil, fs.ErrNotExist }, prepend); err != nil || calls != nil {
+		t.Fatalf("no brew: calls = %q, err = %v", calls, err)
+	}
+
+	boom := errors.New("boom")
+	err := prependBrewPaths(stat, func(...string) error { return boom })
+	if !errors.Is(err, boom) {
+		t.Fatalf("err = %v, want boom", err)
 	}
 }

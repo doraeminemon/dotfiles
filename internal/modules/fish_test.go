@@ -120,7 +120,11 @@ func TestFishAppendsToShells(t *testing.T) {
 			sudo := runner.Cmd{Name: "sudo", Args: []string{"sh", "-c", "echo '" + fishTestPath + "' >> /etc/shells"}}.String()
 			want := []string{"sh -c 'command -v fish'", sudo}
 			want = append(want, fishShellCmds(p)...)
-			want = append(want, "chsh -s "+fishTestPath, "fish -c 'fisher update'")
+			chsh := "chsh -s " + fishTestPath
+			if p.OS == platform.Linux {
+				chsh = "sudo chsh -s " + fishTestPath + " tyson"
+			}
+			want = append(want, chsh, "fish -c 'fisher update'")
 			if got := e.run.Commands(); !slices.Equal(got, want) {
 				t.Fatalf("commands = %q, want %q", got, want)
 			}
