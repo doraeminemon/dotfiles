@@ -2,12 +2,7 @@
 
 Source of truth: [`TASKS.md`](../TASKS.md) (`**Blocked by**` fields). Update this file when you add or remove a task.
 
-```mermaid
-flowchart TD
-  classDef approval fill:#fde68a,stroke:#b45309,color:#000
-  migrate-this-mac:::approval
-  linux-smoke:::approval
-```
+All tasks are done. The queue in TASKS.md is empty.
 
 Waves 0–3 are done and merged: scaffold, ADRs, package lists, chezmoi source, skills profiles, AGENTS templates, the core packages (platform, runner, prompt, pkglist, module), the types review, and all 11 installer modules plus `internal/project`.
 

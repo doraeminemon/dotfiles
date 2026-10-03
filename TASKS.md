@@ -24,10 +24,3 @@
 
 ## P2
 
-- [ ] Smoke-test bootstrap on a fresh Ubuntu VM
-  - **ID**: linux-smoke
-  - **Tags**: needs-approval, linux, test
-  - **Estimate**: 45m
-  - **Details**: `orb create ubuntu dottest`. Inside it, run the README curl one-liner (no git or Go installed beforehand), then `./dot doctor`. Delete the VM after. Record the failures as new tasks.
-  - **Touches**: (none — VM only)
-  - **Acceptance**: `dot doctor` shows every Linux-supported module as Installed.
