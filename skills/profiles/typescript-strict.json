@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "skills": {
+    "domain-driven-design": {
+      "source": "citypaul/.dotfiles",
+      "sourceType": "github",
+      "skillPath": "claude/.claude/skills/domain-driven-design/SKILL.md",
+      "computedHash": "89b2cb2ed31d1c0978f6ca2a97ca3eb06bed3e7e5fe4ca833b6825cb90ec58e5"
+    },
+    "functional": {
+      "source": "citypaul/.dotfiles",
+      "sourceType": "github",
+      "skillPath": "claude/.claude/skills/functional/SKILL.md",
+      "computedHash": "7418b6f235a47c84510059c15ca73540c9dda35d755a21d7db1d7457d9f25c9d"
+    },
+    "integrate-valibot": {
+      "source": "sandros94/open-circle-utils",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/integrate-valibot/SKILL.md",
+      "computedHash": "260e4c12a0f09eddf5be998e954725d8402b46a48ce0a00525f94ae776aafec6"
+    },
+    "typescript": {
+      "source": "thaind97git/best-practices",
+      "sourceType": "github",
+      "skillPath": "typescript/SKILL.md",
+      "computedHash": "14ee579d4612fc7590ddabf449d28dda62fa72d05a284dff302fd1d561428df7"
+    },
+    "typescript-design-patterns": {
+      "source": "peterbamuhigire/skills-web-dev",
+      "sourceType": "github",
+      "skillPath": "skills/typescript-design-patterns/SKILL.md",
+      "computedHash": "ffabb257f8379648ad4699244fcf47c593bdf81a9665079fe4663dbd4d7c7e94"
+    },
+    "typescript-effective": {
+      "source": "peterbamuhigire/skills-web-dev",
+      "sourceType": "github",
+      "skillPath": "skills/typescript-effective/SKILL.md",
+      "computedHash": "35801a7e1f30bac997ab73db0f2f4b43bac906f1fc3ac8cf25b3e8778ce6186e"
+    },
+    "typescript-strict": {
+      "source": "citypaul/.dotfiles",
+      "sourceType": "github",
+      "skillPath": "claude/.claude/skills/typescript-strict/SKILL.md",
+      "computedHash": "bf712e53db219aa2c8171e8bfd902ef68c3382e8b20926c6df885de99a3cf968"
+    },
+    "vitest": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "skillPath": "skills/vitest/SKILL.md",
+      "computedHash": "669c7275f7e1379b06b2bcfa593603aead4c983b951c7e8edbc09640aa38d0a1"
+    }
+  }
+}

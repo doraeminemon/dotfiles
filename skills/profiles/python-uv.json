@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "skills": {
+    "autoresearch": {
+      "source": "uditgoenka/autoresearch",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/autoresearch/SKILL.md",
+      "computedHash": "d40c4a47adfea1c736f9c191c89d7f813fccd46337d2608307783b5140a51f90"
+    },
+    "exa-contents": {
+      "source": "exa-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/exa-contents/SKILL.md",
+      "computedHash": "bc945cf26d1a7bda1a6528b96f125ef3fd92750f58bdd9a35e2565f0ffc0f482"
+    },
+    "exa-search": {
+      "source": "exa-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/exa-search/SKILL.md",
+      "computedHash": "df0181043e50d17da4a9a31ba29a2cb19a1286be22ce810e4a3dd8778b6cc1c8"
+    },
+    "lint-tasks": {
+      "source": "tasksmd/tasks.md",
+      "sourceType": "github",
+      "skillPath": "commands/claude/skills/lint-tasks/SKILL.md",
+      "computedHash": "1097dae064b5917cf9048aa6d34eb6a8258a93fd919fbef29657fc133ee7e39c"
+    },
+    "next-task": {
+      "source": "tasksmd/tasks.md",
+      "sourceType": "github",
+      "skillPath": "commands/claude/skills/next-task/SKILL.md",
+      "computedHash": "a2dda3428dbf25bacaa15a609202272d88686c77e9e65f784b4d65ebecebde5c"
+    },
+    "typst-writing-document": {
+      "source": "Myriad-Dreamin/tinymist",
+      "sourceType": "github",
+      "skillPath": ".codex/skills/typst-writing-document/SKILL.md",
+      "computedHash": "e78295bc2acda84b04b45898e69f4c5932dbbb0f2b4bb08659a57bce214b8eca"
+    }
+  }
+}

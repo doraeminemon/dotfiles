@@ -1,0 +1,11 @@
+[tools]
+bun = "latest"
+go = "latest"
+node = "22"
+pnpm = "10"
+rust = "latest"
+
+[settings]
+
+[settings.node]
+flavor = "musl"

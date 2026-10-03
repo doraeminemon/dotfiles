@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "skills": {
+    "api-and-interface-design": {
+      "source": "v1truv1us/ai-eng-system",
+      "sourceType": "github",
+      "skillPath": "skills/api-and-interface-design/SKILL.md",
+      "computedHash": "6b9dade105c707ac443ce57e4cc6e3e765c0363de1401b12f76170be7ba1469b"
+    },
+    "jobs-to-be-done": {
+      "source": "deanpeters/Product-Manager-Skills",
+      "sourceType": "github",
+      "skillPath": "skills/jobs-to-be-done/SKILL.md",
+      "computedHash": "4ee4c24d0b22d1b288537a1265e43ae63824ac69f0cdd0afcd765c98c50ac6c9"
+    },
+    "lean-ux-canvas": {
+      "source": "deanpeters/Product-Manager-Skills",
+      "sourceType": "github",
+      "skillPath": "skills/lean-ux-canvas/SKILL.md",
+      "computedHash": "f2a7fa51b3f57afd03f4f6a27ea9892b3257f6773de3d24c01dda0065bc6c264"
+    },
+    "mermaid-expert": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "skillPath": "skills/mermaid-expert/SKILL.md",
+      "computedHash": "6dae987d8d84e071e106d7f181a07dd85ae1b62292891cf524addea7048f179d"
+    },
+    "prd-development": {
+      "source": "deanpeters/Product-Manager-Skills",
+      "sourceType": "github",
+      "skillPath": "skills/prd-development/SKILL.md",
+      "computedHash": "03f7586e21391986880d3c7a50bcd845ed8d3b3922298b7d8b0e2e6359f5c598"
+    }
+  }
+}

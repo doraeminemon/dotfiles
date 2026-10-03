@@ -1,0 +1,5 @@
+{{- /* Target paths relative to $HOME that chezmoi must not manage on this machine. */ -}}
+{{ if ne .chezmoi.os "darwin" }}
+# macOS-only targets.
+Library/
+{{ end }}

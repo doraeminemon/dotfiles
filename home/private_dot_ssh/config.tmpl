@@ -1,0 +1,11 @@
+{{- if stat (joinPath .chezmoi.homeDir ".orbstack/ssh/config") -}}
+# OrbStack VMs. Include must come before any Host block.
+Include ~/.orbstack/ssh/config
+
+{{ end -}}
+Host github.com
+  AddKeysToAgent yes
+{{- if eq .chezmoi.os "darwin" }}
+  UseKeychain yes
+{{- end }}
+  IdentityFile ~/.ssh/id_ed25519

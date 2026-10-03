@@ -1,0 +1,42 @@
+# Core Homebrew formulae, installed on macOS and Linux (Linuxbrew).
+# One package per line. `#` starts a comment. Blank lines are ignored.
+# pnpm, bun, go, node, and rust come from mise, not brew.
+# Python comes from conda (miniforge), not brew.
+#
+# Environment-specific tools are NOT listed here. Install them by hand
+# when a project needs them:
+#   flyctl, koyeb, neonctl, infisical, snyk-cli, elixir, caddy
+
+# version control
+git
+git-lfs
+
+# shell
+fish
+fisher
+starship
+zoxide
+lsd
+
+# dotfiles and toolchains
+chezmoi
+mise
+uv
+
+# GitHub
+gh
+
+# search, files, and text
+jq
+ripgrep
+fd
+fzf
+bat
+ast-grep
+glow
+
+# tasks, agents, and linting
+just
+rtk
+golangci-lint
+gitleaks

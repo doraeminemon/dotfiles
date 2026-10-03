@@ -1,0 +1,6 @@
+dist/
+*.local.*
+.env*
+secrets.fish
+/dot
+.claude/worktrees/

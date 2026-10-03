@@ -1,0 +1,51 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+version: 2
+
+project_name: dot
+
+builds:
+  - id: dot
+    main: ./cmd/dot
+    binary: dot
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w -X main.version={{ .Version }}
+
+archives:
+  # Raw binaries, named to match `uname -s` / `uname -m`, so a new machine can run:
+  #   curl -fsSL ".../releases/latest/download/dot_$(uname -s)_$(uname -m)"
+  - id: dot
+    ids:
+      - dot
+    formats:
+      - binary
+    name_template: >-
+      {{ .ProjectName }}_{{ title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if and (eq .Arch "arm64") (eq .Os "linux") }}aarch64
+      {{- else }}{{ .Arch }}{{ end }}
+
+release:
+  # Explicit so goreleaser does not depend on the git remote being set.
+  github:
+    owner: doraeminemon
+    name: dotfiles
+
+checksum:
+  name_template: checksums.txt
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^chore:"
+      - "^docs:"

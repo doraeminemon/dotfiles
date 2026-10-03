@@ -1,0 +1,13 @@
+# apt packages, installed on Debian/Ubuntu only (checked against Ubuntu 24.04).
+# System prerequisites for Homebrew on Linux, plus fish as the login shell.
+# All other tools come from brew.txt.
+# One package per line. `#` starts a comment. Blank lines are ignored.
+
+build-essential
+curl
+git
+file
+procps
+unzip
+ca-certificates
+fish

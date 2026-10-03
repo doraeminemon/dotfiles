@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "rust": {
+      "source": "pvillega/claude-templates",
+      "sourceType": "github",
+      "skillPath": "plugins/ct/skills/rust/SKILL.md",
+      "computedHash": "08b661a5f850a6b68ac1ba1dfcb43e556f1a9732a649e4077ff44d1037793922"
+    },
+    "rust-type-system": {
+      "source": "mhbzhy-lost/claude-personal-config",
+      "sourceType": "github",
+      "skillPath": "skills/rust/rust-type-system/SKILL.md",
+      "computedHash": "bc20f84b9262e29ff5916280355284d21992bb3bc82d9de066292535490f24ba"
+    },
+    "tdd-red-green-refactor": {
+      "source": "google-labs-code/stitch-sdk",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/tdd/SKILL.md",
+      "computedHash": "100869961c315decdb1ad3d003ffa7e0a11efaceb3c5d15bde00e04a38b98e52"
+    }
+  }
+}

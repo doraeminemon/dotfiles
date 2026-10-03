@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "cli-design": {
+      "source": "citypaul/.dotfiles",
+      "sourceType": "github",
+      "skillPath": "claude/.claude/skills/cli-design/SKILL.md",
+      "computedHash": "1b45503835bc96a1d984b21de139aee59c4a6676862873bf74e3a82ba64bdede"
+    },
+    "color-expert": {
+      "source": "meodai/skill.color-expert",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "8d5d769beea6c04498a6d8dc5eebce8d5868deeb0de96344037ee2cd5311d656"
+    },
+    "tdd-red-green-refactor": {
+      "source": "google-labs-code/stitch-sdk",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/tdd/SKILL.md",
+      "computedHash": "100869961c315decdb1ad3d003ffa7e0a11efaceb3c5d15bde00e04a38b98e52"
+    }
+  }
+}
