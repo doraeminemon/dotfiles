@@ -22,14 +22,6 @@
 
 <!-- Wave 5. -->
 
-- [ ] Migrate this Mac to the chezmoi symlinks
-  - **ID**: migrate-this-mac
-  - **Tags**: needs-approval, chezmoi
-  - **Estimate**: 20m
-  - **Details**: Run `go run ./cmd/dot install --only chezmoi`. Review the diff with the user, confirm the backup, and apply. Check that `ls -l ~/.config/fish/config.fish` points into the repo and that a new fish shell starts with no errors.
-  - **Touches**: (none in repo — changes $HOME)
-  - **Acceptance**: The user approved and the symlinks are in place. The backup dir is listed in the report.
-
 ## P2
 
 - [ ] Smoke-test bootstrap on a fresh Ubuntu VM
