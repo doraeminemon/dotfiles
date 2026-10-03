@@ -70,6 +70,10 @@ func main() {
 }
 
 func mainCode(ctx context.Context) int {
+	if err := prependBrewPaths(os.Stat, prependPath); err != nil {
+		_, _ = fmt.Fprintln(os.Stderr, "dot:", err)
+		return 1
+	}
 	p, err := platform.Current()
 	if err != nil {
 		_, _ = fmt.Fprintln(os.Stderr, "dot:", err)
@@ -116,6 +120,25 @@ func allModules() []module.Module {
 		modules.NewSSH(),
 		modules.NewSkills(),
 	}
+}
+
+// brewPrefixes are the Homebrew install prefixes, in the order prependBrewPaths
+// checks them.
+var brewPrefixes = []string{"/opt/homebrew", "/usr/local", "/home/linuxbrew/.linuxbrew"}
+
+// prependBrewPaths puts the bin and sbin of every installed Homebrew on PATH, so
+// a new dot process finds brew-installed tools before the shell restarts.
+// Prefixes are visited in reverse, so the first listed one ends up first.
+func prependBrewPaths(stat func(string) (os.FileInfo, error), prepend func(...string) error) error {
+	for _, prefix := range slices.Backward(brewPrefixes) {
+		if _, err := stat(prefix + "/bin/brew"); err != nil {
+			continue
+		}
+		if err := prepend(prefix+"/bin", prefix+"/sbin"); err != nil {
+			return fmt.Errorf("prepend %s to PATH: %w", prefix, err)
+		}
+	}
+	return nil
 }
 
 // prependPath puts dirs in front of the PATH of this process, so later modules

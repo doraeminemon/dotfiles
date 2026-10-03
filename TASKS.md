@@ -22,15 +22,6 @@
 
 <!-- Wave 5. -->
 
-- [ ] Fix Linux issues found by the Ubuntu smoke test (@w7-linux)
-  - **ID**: linux-fixes
-  - **Tags**: go, linux, bug
-  - **Estimate**: 30m
-  - **Surfaced-by**: linux-smoke run in an OrbStack Ubuntu aarch64 VM
-  - **Details**: (1) fish: on Linux, `chsh -s` asks for the user's password through PAM and fails when the user has none, as in cloud VMs and OrbStack. Use Interactive `sudo chsh -s <fish> <user>` on Linux; keep plain `chsh -s` on darwin. (2) cmd/dot: a new `dot` process (e.g. `dot doctor` after install) cannot find brew-installed tools (`chezmoi: command not found`) because PATH lacks the Homebrew prefix until the shell restarts. At startup, prepend `<prefix>/bin` and `<prefix>/sbin` to PATH when `<prefix>/bin/brew` exists, for prefixes `/opt/homebrew`, `/usr/local`, `/home/linuxbrew/.linuxbrew`. Reuse the existing prependPath helper.
-  - **Touches**: `internal/modules/fish.go`, `internal/modules/fish_test.go`, `cmd/dot/`
-  - **Acceptance**: Tests for both. The gate passes.
-
 - [ ] Migrate this Mac to the chezmoi symlinks
   - **ID**: migrate-this-mac
   - **Tags**: needs-approval, chezmoi
@@ -48,4 +39,3 @@
   - **Details**: `orb create ubuntu dottest`. Inside it, run the README curl one-liner (no git or Go installed beforehand), then `./dot doctor`. Delete the VM after. Record the failures as new tasks.
   - **Touches**: (none — VM only)
   - **Acceptance**: `dot doctor` shows every Linux-supported module as Installed.
-  - **Blocked by**: linux-fixes
