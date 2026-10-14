@@ -1,0 +1,13 @@
+[typography]
+cursor = "block"
+family = "BlexMono Nerd Font Mono"
+
+[appearance]
+theme = "custom:phosphor-oklch"
+
+[motion]
+delete_mode = "undertow"
+keypress = "pop"
+
+[window]
+bell = "attention"
