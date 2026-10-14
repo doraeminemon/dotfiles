@@ -9,7 +9,7 @@ Answers you gave: exa = **Exa API key**. Installer = interactive with fallback (
 - **Shell**: fish + fisher plugins (`patrickf1/fzf.fish`, `franciscolourenco/done`, `kidonng/zoxide.fish`, `jamiesteven/fish-plugin-lsd`, `edc/bass`), starship (`~/.config/starship.toml`, nerd-font symbols), mise activation in `config.fish`.
 - **mise** (`~/.config/mise/config.toml`): bun, go, node 22 (musl), pnpm 10, python, rust.
 - **brew leaves**: many tools. Core subset kept below. Environment-specific tools (flyctl, koyeb, neonctl, infisical, snyk, elixir, caddy, …) are left out and listed in README as "install by hand".
-- **Claude**: `~/.claude/{CLAUDE.md, RTK.md, rules/context7.md, settings.json, agents/, hooks/}`. `settings.json` has a hard-coded absolute home path and a personal `autoMode` block. Both get scrubbed.
+- **Claude**: `~/.claude/{CLAUDE.md, RTK.md, rules/typescript.md, settings.json, agents/, hooks/}`. `settings.json` has a hard-coded absolute home path and a personal `autoMode` block. Both get scrubbed.
 - **Skills**: global lock `~/.agents/.skill-lock.json` (sources: doraeminemon/agent-skills, firecrawl/*, multica-ai/andrej-karpathy-skills, vercel-labs/skills). Personal skills live in the `doraeminemon/agent-skills` repo. Per-project `skills-lock.json` files are in challenge-ai, claude-go-statusline, personal-cv, personal-finance-agent, personal-playground-website, wedding-invitation, and zdb.
 - **Project stacks**: SvelteKit + Cloudflare (pnpm/bun, wrangler), Python with uv (two projects), Rust, Go, Typst.
 - **AGENTS.md / CLAUDE.md variants**: several personal projects carry their own.

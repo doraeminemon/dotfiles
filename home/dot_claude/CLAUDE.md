@@ -2,13 +2,12 @@
 
 Types are the specification. The implementation satisfies them. Invalid programs fail to compile instead of failing in production.
 
-The linter and tsconfig enforce the mechanical rules: no `any`, exhaustive matches, strict flags. Do not restate them. Do not violate them.
+These rules apply in every language. Examples use TypeScript; use the equivalent construct in the project's language. TypeScript-specific rules live in `rules/typescript.md`.
 
 ## 1. Scope
 
 - Build what is needed now. No speculative parameters, flags, plugin points, or abstraction layers.
-- Check the project's own modules and its installed dependencies before you write new code.
-- Read a dependency's type definitions before you call it. A remembered signature is a guess.
+- Read a dependency's installed type definitions or source before you call it. A remembered signature is a guess. For an installed dependency, its local types win over fetched docs, which may describe a different version.
 - A new dependency costs supply chain, size, and maintenance. Add one when it removes real complexity.
 - YAGNI governs features and abstraction, not type precision. A branded ID or a parser specifies what exists today.
 
@@ -31,27 +30,11 @@ Boundaries: HTTP requests and responses, env vars, config, CLI args, `JSON.parse
 - Brand identifiers and units. `UserId` is not `OrderId` is not `string`. Construct through a parse function.
 - Errors are values in the domain. Validation, not-found, forbidden, and timeout belong in the return type. Throw at the boundary only.
 - Prefer total functions. Narrow the input until guards become unnecessary.
-- Do not mutate arguments. Return `readonly` data. Mutation is correct in infrastructure code, hot paths, and local accumulation.
-
-## 4. Type discipline
-
-- No widening. Use `satisfies` instead of an annotation that collapses literal inference.
+- Do not mutate arguments. Return immutable data. Mutation is correct in infrastructure code, hot paths, and local accumulation.
 - A cast lives inside a named parse or adapter function, next to the check that justifies it, with a comment that states the invariant. Never chained. Never in business logic.
 - Wrap a dependency that has bad types in a thin adapter. The codebase imports the adapter.
 
-## 5. Effect
-
-Where the project uses Effect, use its parts instead of reimplementing them.
-
-- `Schema` for boundary parsing and derived types, both directions.
-- `Effect<A, E, R>` as the error channel. Typed errors as `Data.TaggedError`, handled with `catchTag`.
-- `Context.Tag` and `Layer` for dependency inversion. The `R` channel makes a missing dependency a compile error.
-- `Ref` for state, not mutable module scope.
-- Run at the edge with `runPromise` or `runMain`.
-
-Ask before you add Effect to a project that does not use it. Elsewhere, use zod or valibot and a plain `Result` union.
-
-## 6. Dependency inversion
+## 4. Dependency inversion
 
 Invert what does I/O, is non-deterministic, or crosses a process boundary: databases, HTTP clients, filesystem, clock, randomness, brokers, payments, email. Do not invert pure functions or internal helpers.
 
@@ -59,33 +42,33 @@ Invert what does I/O, is non-deterministic, or crosses a process boundary: datab
 - Pass dependencies explicitly. No service locators. No ambient stateful imports.
 - Domain logic must run with no network, no clock, and no database.
 
-## 7. Workflow
+## 5. Workflow
 
-1. Check what already exists.
+1. Check the project's own modules and installed dependencies for what already exists.
 2. Domain types and branded IDs.
 3. Boundary schemas, inbound and outbound, and the error type.
 4. Consumer-side interfaces for the inverted dependencies.
 5. The signature of the work.
 6. Implement.
 
-Present steps 2 to 5 for review before substantial implementation. Skip the review when the task is small.
+Present steps 2 to 5 for review before you implement when the work adds a module, adds a boundary, or changes a public or persisted type. Otherwise, implement directly.
 
 If implementation shows the types are wrong, change the types. Do not use a cast, an optional field, or a widened return.
 
-## 8. Decision records
+## 6. Decision records
 
-Records live in `/docs/adr/` of the project. Number them and never renumber. Format: Status, Context, Decision, Consequences.
+Records live in `docs/adr/` at the project root. Number them and never renumber. Format: Status, Context, Decision, Consequences.
 
-- Write one when a decision constrains future work, is expensive to reverse, or rejects a plausible alternative.
+- A record is due when a decision constrains future work, is expensive to reverse, or rejects a plausible alternative.
+- If `docs/adr/` exists, write the record when the decision is made. If it does not exist, propose the record and ask.
 - Record the alternatives and why they lost. That part has value in two years.
-- Write it when the decision is made.
 - Supersede, do not delete. Link to the replacement.
 
-## 9. Calibration
+## 7. Calibration
 
 Apply full rigor to public APIs, persisted data, cross-service contracts, security, money, and anything with more than one consumer. For scripts, one-off migrations, and prototypes, apply less and say so.
 
-## 10. Existing code
+## 8. Existing code
 
 Existing conventions win, even against these rules. Note the conflict once, then follow the convention. Apply these rules to new code. Apply them to existing code only on request.
 
